@@ -1862,6 +1862,7 @@ if (localStorage.getItem('darkMode') === '1') {
    <div style="padding:20px 22px 16px;border-bottom:1px solid #f0f0f0">
     <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:#bbb;margin-bottom:6px">היום</div>
     <div style="font-family:'Cormorant Garamond',Georgia,serif;font-size:22px;font-weight:500;color:#0f2557;letter-spacing:0.2px;line-height:1.2">החשובים ביותר</div>
+    <div style="width:52px;height:1.5px;background:linear-gradient(90deg,#0f2557,rgba(15,37,87,0.08));border-radius:2px;margin-top:10px"></div>
     <div style="margin-top:12px;width:32px;height:2px;background:linear-gradient(90deg,#0f2557,rgba(15,37,87,0.15));border-radius:2px"></div>
    </div>
    <!-- Priorities list -->
@@ -2266,30 +2267,39 @@ if (localStorage.getItem('darkMode') === '1') {
 
   <div class="g2">
 
-    <!-- COLUMN 1: Video Ideas -->
+    <!-- COLUMN 1: Video Ideas - short & long side by side -->
     <div style="background:#111111;border:1px solid rgba(255,255,255,0.1);border-radius:var(--r);overflow:hidden">
       <div style="background:#000;padding:14px 20px;border-bottom:1px solid rgba(255,255,255,0.08)">
         <div style="font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:500;color:#ffffff">רעיונות לסרטונים</div>
       </div>
-      <!-- Tabs: short / long -->
-      <div style="display:flex;border-bottom:1px solid rgba(255,255,255,0.08)">
-        <button id="ideas-tab-short" onclick="switchIdeasTab('short')"
-          style="flex:1;background:rgba(255,255,255,0.08);border:none;color:#ffffff;padding:10px;font-size:12px;font-weight:700;font-family:Inter,sans-serif;cursor:pointer;letter-spacing:0.5px;text-transform:uppercase;border-bottom:2px solid #ffffff;transition:all .2s">
-          תוכן קצר
-        </button>
-        <button id="ideas-tab-long" onclick="switchIdeasTab('long')"
-          style="flex:1;background:transparent;border:none;color:rgba(255,255,255,0.4);padding:10px;font-size:12px;font-weight:700;font-family:Inter,sans-serif;cursor:pointer;letter-spacing:0.5px;text-transform:uppercase;border-bottom:2px solid transparent;transition:all .2s">
-          תוכן ארוך
-        </button>
-      </div>
-      <div style="padding:16px 20px">
-        <div id="video-ideas-list"></div>
-        <div style="display:flex;gap:8px;margin-top:14px">
-          <input type="text" id="new-video-idea" placeholder="רעיון לסרטון..."
-            style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:#fff;border-radius:8px;padding:8px 12px;font-size:14px;font-family:Inter,sans-serif;flex:1">
-          <button onclick="addVideoIdea()"
-            style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);color:#fff;border-radius:8px;padding:8px 14px;cursor:pointer;font-size:13px;font-family:Inter,sans-serif;font-weight:600;white-space:nowrap">+ הוסף</button>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0">
+
+        <!-- תוכן קצר -->
+        <div style="padding:14px 16px;border-left:1px solid rgba(255,255,255,0.08)">
+          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:rgba(255,255,255,0.4);margin-bottom:10px">תוכן קצר</div>
+          <div id="video-ideas-short-list"></div>
+          <div style="display:flex;gap:6px;margin-top:10px">
+            <input type="text" id="new-video-idea-short" placeholder="רעיון..."
+              style="flex:1;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:#fff;border-radius:8px;padding:6px 10px;font-size:13px;font-family:Inter,sans-serif;outline:none"
+              onkeydown="if(event.key==='Enter')addVideoIdeaDirect('short')">
+            <button onclick="addVideoIdeaDirect('short')"
+              style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);color:#fff;border-radius:8px;padding:6px 10px;cursor:pointer;font-size:12px;font-family:Inter,sans-serif">+</button>
+          </div>
         </div>
+
+        <!-- תוכן ארוך -->
+        <div style="padding:14px 16px">
+          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:rgba(255,255,255,0.4);margin-bottom:10px">תוכן ארוך</div>
+          <div id="video-ideas-long-list"></div>
+          <div style="display:flex;gap:6px;margin-top:10px">
+            <input type="text" id="new-video-idea-long" placeholder="רעיון..."
+              style="flex:1;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:#fff;border-radius:8px;padding:6px 10px;font-size:13px;font-family:Inter,sans-serif;outline:none"
+              onkeydown="if(event.key==='Enter')addVideoIdeaDirect('long')">
+            <button onclick="addVideoIdeaDirect('long')"
+              style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);color:#fff;border-radius:8px;padding:6px 10px;cursor:pointer;font-size:12px;font-family:Inter,sans-serif">+</button>
+          </div>
+        </div>
+
       </div>
     </div>
 
@@ -3149,13 +3159,13 @@ const VIDEO_STATUS_LABELS = {
 };
 
 function initContent() {
-  _ideasTab = 'short';
   // Migrate old video_ideas to short
   const oldIdeas = get('video_ideas', []);
   if (oldIdeas.length && !get('video_ideas_short', []).length) {
     save('video_ideas_short', oldIdeas);
   }
-  renderVideoIdeas(get('video_ideas_short', []));
+  renderVideoIdeasDirect('short', get('video_ideas_short', []));
+  renderVideoIdeasDirect('long', get('video_ideas_long', []));
   renderVideosTodo(get('videos_todo', []));
 }
 
@@ -3644,6 +3654,41 @@ function removeBizItem(type, i) {
   items.splice(i, 1);
   save('biz_'+type, items);
   renderBizList(type, items);
+}
+
+
+function renderVideoIdeasDirect(type, ideas) {
+  const el = document.getElementById('video-ideas-' + type + '-list');
+  if (!el) return;
+  if (!ideas.length) {
+    el.innerHTML = '<p style="color:rgba(255,255,255,0.25);font-size:13px;padding:4px 0">ריק</p>';
+    return;
+  }
+  el.innerHTML = ideas.map((idea, i) => `
+    <div style="display:flex;align-items:center;gap:6px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06)"
+      onmouseover="this.querySelector('button').style.opacity=1"
+      onmouseout="this.querySelector('button').style.opacity=0">
+      <span style="font-size:8px;color:rgba(255,255,255,0.25);flex-shrink:0">•</span>
+      <span style="flex:1;font-size:13px;color:#ffffff">${idea}</span>
+      <button onclick="removeVideoIdeaDirect('${type}',${i})" style="background:none;border:none;color:rgba(255,255,255,0.3);cursor:pointer;font-size:12px;opacity:0;transition:opacity .15s;padding:0">✕</button>
+    </div>`).join('');
+}
+
+function addVideoIdeaDirect(type) {
+  const inp = document.getElementById('new-video-idea-' + type);
+  const val = inp.value.trim(); if (!val) return;
+  const ideas = get('video_ideas_' + type, []);
+  ideas.push(val);
+  save('video_ideas_' + type, ideas);
+  inp.value = '';
+  renderVideoIdeasDirect(type, ideas);
+}
+
+function removeVideoIdeaDirect(type, i) {
+  const ideas = get('video_ideas_' + type, []);
+  ideas.splice(i, 1);
+  save('video_ideas_' + type, ideas);
+  renderVideoIdeasDirect(type, ideas);
 }
 
 // ======= BOOT =======
