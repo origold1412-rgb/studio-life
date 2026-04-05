@@ -1634,6 +1634,57 @@ body.dark .card {
   border-color: rgba(255,255,255,0.08) !important;
 }
 
+
+/* ===== DARK MODE VISIBILITY FIX ===== */
+/* Make sure all list containers are visible */
+body.dark #morning-routine-list,
+body.dark #evening-routine-list,
+body.dark #tasks-list,
+body.dark #goals-music,
+body.dark #goals-video,
+body.dark #goals-fitness,
+body.dark #goals-social,
+body.dark #goals-business,
+body.dark #media-yt-list,
+body.dark #media-pod-list,
+body.dark #tx-list,
+body.dark #daily-priorities,
+body.dark #biz-model-list,
+body.dark #biz-marketing-list,
+body.dark #video-ideas-short-list,
+body.dark #video-ideas-long-list,
+body.dark #videos-todo-list,
+body.dark #training-columns,
+body.dark #week-grid,
+body.dark #task-matrix-grid {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* All text in dark mode visible */
+body.dark * {
+  -webkit-text-fill-color: initial;
+}
+
+/* Routine items always visible */
+body.dark .routine-item {
+  display: flex !important;
+  visibility: visible !important;
+}
+
+/* Task items always visible */
+body.dark .task-item {
+  display: flex !important;
+  visibility: visible !important;
+}
+
+/* Goal items always visible */
+body.dark .goal-item {
+  display: flex !important;
+  visibility: visible !important;
+}
+
 @media print {
  body { background: #fff; color: #000; }
  .topbar, .status-bar, .btn-row { display: none !important; }
@@ -2265,41 +2316,41 @@ if (localStorage.getItem('darkMode') === '1') {
 <div id="tab-content" class="tab-panel">
   <div class="pg-head"><h1>תוכן</h1><p>ניהול רעיונות וסרטונים</p></div>
 
-  <div class="g2">
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr;gap:16px">
 
-    <!-- COLUMN 1: Video Ideas - short & long side by side -->
+    <!-- COLUMN 1a: תוכן קצר -->
     <div style="background:#111111;border:1px solid rgba(255,255,255,0.1);border-radius:var(--r);overflow:hidden">
       <div style="background:#000;padding:14px 20px;border-bottom:1px solid rgba(255,255,255,0.08)">
-        <div style="font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:500;color:#ffffff">רעיונות לסרטונים</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:500;color:#ffffff">תוכן קצר</div>
+        <div style="width:52px;height:1.5px;background:linear-gradient(90deg,#fff,rgba(255,255,255,0.05));border-radius:2px;margin-top:8px"></div>
       </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0">
-
-        <!-- תוכן קצר -->
-        <div style="padding:14px 16px;border-left:1px solid rgba(255,255,255,0.08)">
-          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:rgba(255,255,255,0.4);margin-bottom:10px">תוכן קצר</div>
-          <div id="video-ideas-short-list"></div>
-          <div style="display:flex;gap:6px;margin-top:10px">
-            <input type="text" id="new-video-idea-short" placeholder="רעיון..."
-              style="flex:1;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:#fff;border-radius:8px;padding:6px 10px;font-size:13px;font-family:Inter,sans-serif;outline:none"
-              onkeydown="if(event.key==='Enter')addVideoIdeaDirect('short')">
-            <button onclick="addVideoIdeaDirect('short')"
-              style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);color:#fff;border-radius:8px;padding:6px 10px;cursor:pointer;font-size:12px;font-family:Inter,sans-serif">+</button>
-          </div>
+      <div style="padding:14px 16px">
+        <div id="video-ideas-short-list"></div>
+        <div style="display:flex;gap:6px;margin-top:10px">
+          <input type="text" id="new-video-idea-short" placeholder="רעיון..."
+            style="flex:1;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:#fff;border-radius:8px;padding:6px 10px;font-size:13px;font-family:Inter,sans-serif;outline:none"
+            onkeydown="if(event.key==='Enter')addVideoIdeaDirect('short')">
+          <button onclick="addVideoIdeaDirect('short')"
+            style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);color:#fff;border-radius:8px;padding:6px 12px;cursor:pointer;font-size:13px;font-family:Inter,sans-serif">+</button>
         </div>
+      </div>
+    </div>
 
-        <!-- תוכן ארוך -->
-        <div style="padding:14px 16px">
-          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:rgba(255,255,255,0.4);margin-bottom:10px">תוכן ארוך</div>
-          <div id="video-ideas-long-list"></div>
-          <div style="display:flex;gap:6px;margin-top:10px">
-            <input type="text" id="new-video-idea-long" placeholder="רעיון..."
-              style="flex:1;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:#fff;border-radius:8px;padding:6px 10px;font-size:13px;font-family:Inter,sans-serif;outline:none"
-              onkeydown="if(event.key==='Enter')addVideoIdeaDirect('long')">
-            <button onclick="addVideoIdeaDirect('long')"
-              style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);color:#fff;border-radius:8px;padding:6px 10px;cursor:pointer;font-size:12px;font-family:Inter,sans-serif">+</button>
-          </div>
+    <!-- COLUMN 1b: תוכן ארוך -->
+    <div style="background:#111111;border:1px solid rgba(255,255,255,0.1);border-radius:var(--r);overflow:hidden">
+      <div style="background:#000;padding:14px 20px;border-bottom:1px solid rgba(255,255,255,0.08)">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:500;color:#ffffff">תוכן ארוך</div>
+        <div style="width:52px;height:1.5px;background:linear-gradient(90deg,#fff,rgba(255,255,255,0.05));border-radius:2px;margin-top:8px"></div>
+      </div>
+      <div style="padding:14px 16px">
+        <div id="video-ideas-long-list"></div>
+        <div style="display:flex;gap:6px;margin-top:10px">
+          <input type="text" id="new-video-idea-long" placeholder="רעיון..."
+            style="flex:1;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:#fff;border-radius:8px;padding:6px 10px;font-size:13px;font-family:Inter,sans-serif;outline:none"
+            onkeydown="if(event.key==='Enter')addVideoIdeaDirect('long')">
+          <button onclick="addVideoIdeaDirect('long')"
+            style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);color:#fff;border-radius:8px;padding:6px 12px;cursor:pointer;font-size:13px;font-family:Inter,sans-serif">+</button>
         </div>
-
       </div>
     </div>
 
@@ -2326,12 +2377,63 @@ if (localStorage.getItem('darkMode') === '1') {
               style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);color:#fff;border-radius:8px;padding:8px 16px;cursor:pointer;font-size:13px;font-family:Inter,sans-serif;font-weight:600;white-space:nowrap">+ הוסף</button>
           </div>
         </div>
+
+    <!-- COLUMN 5: עובד עליו כרגע -->
+    <div style="background:#111111;border:1px solid rgba(255,255,255,0.1);border-radius:var(--r);overflow:hidden">
+      <div style="background:#000;padding:14px 20px;border-bottom:1px solid rgba(255,255,255,0.08)">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:500;color:#ffffff">עובד עליו כרגע</div>
+        <div style="width:52px;height:1.5px;background:linear-gradient(90deg,#fff,rgba(255,255,255,0.05));border-radius:2px;margin-top:8px"></div>
+      </div>
+      <div style="padding:14px 16px">
+        <div id="working-now-list"></div>
+        <div style="display:flex;gap:6px;margin-top:10px">
+          <input type="text" id="new-working-now" placeholder="הוסף..."
+            style="flex:1;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:#fff;border-radius:8px;padding:7px 10px;font-size:13px;font-family:Inter,sans-serif;outline:none"
+            onkeydown="if(event.key==='Enter')addSimpleList('working-now')">
+          <button onclick="addSimpleList('working-now')"
+            style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);color:#fff;border-radius:8px;padding:7px 12px;cursor:pointer;font-size:13px;font-family:Inter,sans-serif">+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- COLUMN 3: תוכן ארוך לעבוד עליו -->
+    <div style="background:#111111;border:1px solid rgba(255,255,255,0.1);border-radius:var(--r);overflow:hidden">
+      <div style="background:#000;padding:14px 20px;border-bottom:1px solid rgba(255,255,255,0.08)">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:500;color:#ffffff">תוכן ארוך לעבוד עליו</div>
+        <div style="width:52px;height:1.5px;background:linear-gradient(90deg,#fff,rgba(255,255,255,0.05));border-radius:2px;margin-top:8px"></div>
+      </div>
+      <div style="padding:14px 18px">
+        <div id="content-long-work-list"></div>
+        <div style="display:flex;gap:6px;margin-top:12px">
+          <input type="text" id="new-content-long-work" placeholder="הוסף סרטון לעבוד עליו..."
+            style="flex:1;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:#fff;border-radius:8px;padding:7px 10px;font-size:13px;font-family:Inter,sans-serif;outline:none"
+            onkeydown="if(event.key==='Enter')addContentItem('long_work','new-content-long-work','content-long-work-list')">
+          <button onclick="addContentItem('long_work','new-content-long-work','content-long-work-list')"
+            style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);color:#fff;border-radius:8px;padding:7px 12px;cursor:pointer;font-size:13px;font-family:Inter,sans-serif">+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- COLUMN 4: ללמוד בתופים -->
+    <div style="background:#111111;border:1px solid rgba(255,255,255,0.1);border-radius:var(--r);overflow:hidden">
+      <div style="background:#000;padding:14px 20px;border-bottom:1px solid rgba(255,255,255,0.08)">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:500;color:#ffffff">ללמוד בתופים</div>
+        <div style="width:52px;height:1.5px;background:linear-gradient(90deg,#fff,rgba(255,255,255,0.05));border-radius:2px;margin-top:8px"></div>
+      </div>
+      <div style="padding:14px 18px">
+        <div id="drums-learn-list"></div>
+        <div style="display:flex;gap:6px;margin-top:12px">
+          <input type="text" id="new-drums-learn" placeholder="הוסף נושא ללמוד..."
+            style="flex:1;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:#fff;border-radius:8px;padding:7px 10px;font-size:13px;font-family:Inter,sans-serif;outline:none"
+            onkeydown="if(event.key==='Enter')addContentItem('drums_learn','new-drums-learn','drums-learn-list')">
+          <button onclick="addContentItem('drums_learn','new-drums-learn','drums-learn-list')"
+            style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);color:#fff;border-radius:8px;padding:7px 12px;cursor:pointer;font-size:13px;font-family:Inter,sans-serif">+</button>
+        </div>
       </div>
     </div>
 
   </div>
 </div>
-
 
 <!-- ========== TRAINING ========== -->
 <div id="tab-training" class="tab-panel">
@@ -2367,17 +2469,72 @@ if (localStorage.getItem('darkMode') === '1') {
 // ======= STORAGE =======
 function save(k, v) {
   try {
+    // Save to localStorage
     const all = JSON.parse(localStorage.getItem('slv3') || '{}');
     all[k] = v;
-    localStorage.setItem('slv3', JSON.stringify(all));
-  } catch(e) { console.error('save error', e); }
+    const str = JSON.stringify(all);
+    localStorage.setItem('slv3', str);
+    // Also save to sessionStorage as backup
+    sessionStorage.setItem('slv3', str);
+    // Also save to IndexedDB
+    saveToIDB(str);
+  } catch(e) {}
 }
 
 function get(k, defaultVal) {
   try {
-    const all = JSON.parse(localStorage.getItem('slv3') || '{}');
+    // Try localStorage first
+    let str = localStorage.getItem('slv3');
+    // If empty, try sessionStorage
+    if (!str || str === '{}') str = sessionStorage.getItem('slv3');
+    // If still empty, try IDB cache
+    if (!str || str === '{}') str = window._idbCache || null;
+    const all = JSON.parse(str || '{}');
     return all.hasOwnProperty(k) ? all[k] : defaultVal;
   } catch(e) { return defaultVal; }
+}
+
+// IndexedDB backup
+let _idbStore = null;
+window._idbCache = null;
+
+function openIDB() {
+  return new Promise(resolve => {
+    try {
+      const req = indexedDB.open('sldb', 1);
+      req.onupgradeneeded = e => e.target.result.createObjectStore('d');
+      req.onsuccess = e => resolve(e.target.result);
+      req.onerror = () => resolve(null);
+    } catch(e) { resolve(null); }
+  });
+}
+
+async function saveToIDB(str) {
+  try {
+    const db = await openIDB();
+    if (!db) return;
+    db.transaction('d','readwrite').objectStore('d').put(str, 'slv3');
+  } catch(e) {}
+}
+
+async function loadFromIDB() {
+  try {
+    const db = await openIDB();
+    if (!db) return;
+    const req = db.transaction('d','readonly').objectStore('d').get('slv3');
+    req.onsuccess = e => {
+      if (e.target.result) {
+        window._idbCache = e.target.result;
+        // Restore to localStorage if empty
+        if (!localStorage.getItem('slv3') || localStorage.getItem('slv3') === '{}') {
+          localStorage.setItem('slv3', e.target.result);
+          sessionStorage.setItem('slv3', e.target.result);
+        }
+      }
+      loadFromIDB();
+    };
+    req.onerror = () => bootApp();
+  } catch(e) { bootApp(); }
 }
 
 
@@ -3159,6 +3316,9 @@ const VIDEO_STATUS_LABELS = {
 };
 
 function initContent() {
+  initSimpleList('working-now');
+  initSimpleList('content-long-work');
+  initSimpleList('drums-learn');
   // Migrate old video_ideas to short
   const oldIdeas = get('video_ideas', []);
   if (oldIdeas.length && !get('video_ideas_short', []).length) {
@@ -3281,7 +3441,7 @@ function removeVideoTodo(i) {
 
 // ======= DAILY PRIORITIES =======
 function initPriorities() {
-  renderPriorities(get('daily_priorities_' + todayKey(), []));
+  renderPriorities(get('my_priorities', []));
 }
 
 function renderPriorities(items) {
@@ -3319,7 +3479,7 @@ function showPriorityInput() {
   btn.style.display  = 'none';
   document.getElementById('new-priority').focus();
   // Re-render with delete buttons visible
-  renderPriorities(get('daily_priorities_' + todayKey(), []));
+  renderPriorities(get('my_priorities', []));
 }
 
 function hidePriorityInput() {
@@ -3328,24 +3488,33 @@ function hidePriorityInput() {
   area.style.display = 'none';
   btn.style.display  = 'block';
   // Re-render without delete buttons
-  renderPriorities(get('daily_priorities_' + todayKey(), []));
+  renderPriorities(get('my_priorities', []));
 }
 
 function addPriority() {
   const inp = document.getElementById('new-priority');
   const text = inp.value.trim(); if (!text) return;
-  const key = 'daily_priorities_' + todayKey();
+  const key = 'my_priorities';
   const items = get(key, []);
   if (items.length >= 7) { showToast('מקסימום 7 עדיפויות'); return; }
   items.push({text});
   save(key, items);
+  // Force immediate save to all storages
+  try {
+    const all = JSON.parse(localStorage.getItem('slv3') || '{}');
+    all[key] = items;
+    const str = JSON.stringify(all);
+    localStorage.setItem('slv3', str);
+    sessionStorage.setItem('slv3', str);
+    saveToIDB(str);
+  } catch(e) {}
   inp.value = '';
   hidePriorityInput();
   renderPriorities(items);
 }
 
 function removePriority(i) {
-  const key = 'daily_priorities_' + todayKey();
+  const key = 'my_priorities';
   const items = get(key, []);
   items.splice(i, 1);
   save(key, items);
@@ -3691,8 +3860,94 @@ function removeVideoIdeaDirect(type, i) {
   renderVideoIdeasDirect(type, ideas);
 }
 
+
+// ======= GENERIC CONTENT LISTS =======
+function renderContentList(key, elId) {
+  const el = document.getElementById(elId);
+  if (!el) return;
+  const items = get(key, []);
+  if (!items.length) {
+    el.innerHTML = '<p style="color:rgba(255,255,255,0.25);font-size:13px;padding:4px 0">ריק</p>';
+    return;
+  }
+  el.innerHTML = items.map((item, i) => `
+    <div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.06)"
+      onmouseover="this.querySelector('button').style.opacity=1"
+      onmouseout="this.querySelector('button').style.opacity=0">
+      <span style="color:rgba(255,255,255,0.3);font-size:12px;flex-shrink:0">•</span>
+      <span style="flex:1;font-size:14px;color:#ffffff;font-weight:400">${item}</span>
+      <button onclick="removeContentItem('${key}','${elId}',${i})"
+        style="background:none;border:none;color:rgba(255,255,255,0.3);cursor:pointer;font-size:13px;opacity:0;transition:opacity .15s;padding:0">✕</button>
+    </div>`).join('');
+}
+
+function addContentItem(key, inpId, elId) {
+  const inp = document.getElementById(inpId);
+  const val = (inp.value||'').trim(); if (!val) return;
+  const items = get(key, []);
+  items.push(val);
+  save(key, items);
+  inp.value = '';
+  renderContentList(key, elId);
+}
+
+function removeContentItem(key, elId, i) {
+  const items = get(key, []);
+  items.splice(i, 1);
+  save(key, items);
+  renderContentList(key, elId);
+}
+
+function initContentLists() {
+  renderContentList('long_work', 'content-long-work-list');
+  renderContentList('drums_learn', 'drums-learn-list');
+}
+
+
+// ======= SIMPLE LIST =======
+function initSimpleList(id) {
+  renderSimpleList(id, get('list_' + id, []));
+}
+
+function renderSimpleList(id, items) {
+  const el = document.getElementById(id + '-list');
+  if (!el) return;
+  if (!items.length) {
+    el.innerHTML = '<p style="color:rgba(255,255,255,0.25);font-size:13px;padding:4px 0">ריק</p>';
+    return;
+  }
+  el.innerHTML = items.map((item, i) => `
+    <div style="display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid rgba(255,255,255,0.06)"
+      onmouseover="this.querySelector('button').style.opacity=1"
+      onmouseout="this.querySelector('button').style.opacity=0">
+      <span style="color:rgba(255,255,255,0.3);font-size:10px;flex-shrink:0">•</span>
+      <span style="flex:1;font-size:14px;color:#ffffff;font-weight:400">${item}</span>
+      <button onclick="removeSimpleList('${id}',${i})"
+        style="background:none;border:none;color:rgba(255,255,255,0.3);cursor:pointer;font-size:13px;opacity:0;transition:opacity .15s;padding:0">✕</button>
+    </div>`).join('');
+}
+
+function addSimpleList(id) {
+  const inp = document.getElementById('new-' + id);
+  const val = inp ? inp.value.trim() : ''; if (!val) return;
+  const items = get('list_' + id, []);
+  items.push(val);
+  save('list_' + id, items);
+  inp.value = '';
+  renderSimpleList(id, items);
+}
+
+function removeSimpleList(id, i) {
+  const items = get('list_' + id, []);
+  items.splice(i, 1);
+  save('list_' + id, items);
+  renderSimpleList(id, items);
+}
+
 // ======= BOOT =======
 function bootApp() {
+  if (window._booted) return;
+  window._booted = true;
   initDarkMode();
   initBizLists();
   initDaily();
@@ -3705,6 +3960,7 @@ function bootApp() {
   initMoney();
   initReview();
   initContent();
+  initContentLists();
   initTraining();
   updateStatusBar();
   if(notionCfg.token){ const el=document.getElementById('notion-token'); if(el) el.value=notionCfg.token; }
