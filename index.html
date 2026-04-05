@@ -2336,71 +2336,11 @@ if (localStorage.getItem('darkMode') === '1') {
 
   <div style="display:flex;gap:16px;overflow-x:auto;padding-bottom:16px;align-items:flex-start">
 
-    <!-- COLUMN 1a: רעיונות -->
-    <div style="background:#111111;border:1px solid rgba(255,255,255,0.1);border-radius:var(--r);overflow:hidden;min-width:400px;flex-shrink:0">
-      <div style="background:#000;padding:14px 20px;border-bottom:1px solid rgba(255,255,255,0.08)">
-        <div style="font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:500;color:#ffffff">רעיונות לסרטונים</div>
-        <div style="width:52px;height:1.5px;background:linear-gradient(90deg,#fff,rgba(255,255,255,0.05));border-radius:2px;margin-top:8px"></div>
-      </div>
-      <div style="padding:14px 16px">
-        <div id="video-ideas-short-list"></div>
-        <div style="display:flex;gap:6px;margin-top:10px">
-          <input type="text" id="new-video-idea-short" placeholder="רעיון..."
-            style="flex:1;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:#fff;border-radius:8px;padding:6px 10px;font-size:13px;font-family:Inter,sans-serif;outline:none"
-            onkeydown="if(event.key==='Enter')addVideoIdeaDirect('short')">
-          <button onclick="addVideoIdeaDirect('short')"
-            style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);color:#fff;border-radius:8px;padding:6px 12px;cursor:pointer;font-size:13px;font-family:Inter,sans-serif">+</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- COLUMN 1b: תוכן ארוך -->
-    <div style="background:#111111;border:1px solid rgba(255,255,255,0.1);border-radius:var(--r);overflow:hidden">
-      <div style="background:#000;padding:14px 20px;border-bottom:1px solid rgba(255,255,255,0.08)">
-        <div style="font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:500;color:#ffffff">תוכן ארוך</div>
-        <div style="width:52px;height:1.5px;background:linear-gradient(90deg,#fff,rgba(255,255,255,0.05));border-radius:2px;margin-top:8px"></div>
-      </div>
-      <div style="padding:14px 16px">
-        <div id="video-ideas-long-list"></div>
-        <div style="display:flex;gap:6px;margin-top:10px">
-          <input type="text" id="new-video-idea-long" placeholder="רעיון..."
-            style="flex:1;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:#fff;border-radius:8px;padding:6px 10px;font-size:13px;font-family:Inter,sans-serif;outline:none"
-            onkeydown="if(event.key==='Enter')addVideoIdeaDirect('long')">
-          <button onclick="addVideoIdeaDirect('long')"
-            style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);color:#fff;border-radius:8px;padding:6px 12px;cursor:pointer;font-size:13px;font-family:Inter,sans-serif">+</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- COLUMN 2: Videos To Do -->
-    <div style="background:#111111;border:1px solid rgba(255,255,255,0.1);border-radius:var(--r);overflow:hidden;min-width:260px;flex-shrink:0">
-      <div style="background:#000;padding:14px 20px;border-bottom:1px solid rgba(255,255,255,0.08)">
-        <div style="font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:500;color:#ffffff">סרטונים לעשות</div>
-      </div>
-      <div style="padding:16px 20px">
-        <div id="videos-todo-list"></div>
-        <div style="display:flex;flex-direction:column;gap:8px;margin-top:14px">
-          <input type="text" id="new-video-todo" placeholder="שם הסרטון..."
-            style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:#fff;border-radius:8px;padding:8px 12px;font-size:14px;font-family:Inter,sans-serif;width:100%">
-          <div style="display:flex;gap:8px">
-            <select id="new-video-todo-status"
-              style="flex:1;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:#fff;border-radius:8px;padding:8px 10px;font-size:13px;font-family:Inter,sans-serif">
-              <option value="idea">רעיון</option>
-              <option value="script">תסריט</option>
-              <option value="filming">צילום</option>
-              <option value="edit">עריכה</option>
-              <option value="done">מוכן</option>
-            </select>
-            <button onclick="addVideoTodo()"
-              style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);color:#fff;border-radius:8px;padding:8px 16px;cursor:pointer;font-size:13px;font-family:Inter,sans-serif;font-weight:600;white-space:nowrap">+ הוסף</button>
-          </div>
-        </div>
-
-    <!-- COLUMN 5: עובד עליו כרגע -->
-    <div style="background:#111111;border:1px solid rgba(255,255,255,0.1);border-radius:var(--r);overflow:hidden;min-width:260px;flex-shrink:0">
-      <div style="background:#000;padding:14px 20px;border-bottom:1px solid rgba(255,255,255,0.08)">
-        <div style="font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:500;color:#ffffff">עובד עליו כרגע</div>
-        <div style="width:52px;height:1.5px;background:linear-gradient(90deg,#fff,rgba(255,255,255,0.05));border-radius:2px;margin-top:8px"></div>
+    <!-- עובד עליו כרגע -->
+    <div style="background:#111;border:1px solid rgba(255,255,255,0.1);border-radius:16px;overflow:hidden;min-width:240px;flex-shrink:0">
+      <div style="background:#000;padding:14px 18px;border-bottom:1px solid rgba(255,255,255,0.08)">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:500;color:#fff">עובד עליו כרגע</div>
+        <div style="width:40px;height:1.5px;background:linear-gradient(90deg,#fff,rgba(255,255,255,0.05));border-radius:2px;margin-top:8px"></div>
       </div>
       <div style="padding:14px 16px">
         <div id="working-now-list"></div>
@@ -2414,16 +2354,52 @@ if (localStorage.getItem('darkMode') === '1') {
       </div>
     </div>
 
-    <!-- COLUMN 3: תוכן ארוך לעבוד עליו -->
-    <div style="background:#111111;border:1px solid rgba(255,255,255,0.1);border-radius:var(--r);overflow:hidden;min-width:260px;flex-shrink:0">
-      <div style="background:#000;padding:14px 20px;border-bottom:1px solid rgba(255,255,255,0.08)">
-        <div style="font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:500;color:#ffffff">תוכן ארוך לעבוד עליו</div>
-        <div style="width:52px;height:1.5px;background:linear-gradient(90deg,#fff,rgba(255,255,255,0.05));border-radius:2px;margin-top:8px"></div>
+    <!-- רעיונות קצר -->
+    <div style="background:#111;border:1px solid rgba(255,255,255,0.1);border-radius:16px;overflow:hidden;min-width:240px;flex-shrink:0">
+      <div style="background:#000;padding:14px 18px;border-bottom:1px solid rgba(255,255,255,0.08)">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:500;color:#fff">רעיונות — תוכן קצר</div>
+        <div style="width:40px;height:1.5px;background:linear-gradient(90deg,#fff,rgba(255,255,255,0.05));border-radius:2px;margin-top:8px"></div>
       </div>
-      <div style="padding:14px 18px">
+      <div style="padding:14px 16px">
+        <div id="video-ideas-short-list"></div>
+        <div style="display:flex;gap:6px;margin-top:10px">
+          <input type="text" id="new-video-idea-short" placeholder="הוסף..."
+            style="flex:1;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:#fff;border-radius:8px;padding:7px 10px;font-size:13px;font-family:Inter,sans-serif;outline:none"
+            onkeydown="if(event.key==='Enter')addVideoIdeaDirect('short')">
+          <button onclick="addVideoIdeaDirect('short')"
+            style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);color:#fff;border-radius:8px;padding:7px 12px;cursor:pointer;font-size:13px;font-family:Inter,sans-serif">+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- רעיונות ארוך -->
+    <div style="background:#111;border:1px solid rgba(255,255,255,0.1);border-radius:16px;overflow:hidden;min-width:240px;flex-shrink:0">
+      <div style="background:#000;padding:14px 18px;border-bottom:1px solid rgba(255,255,255,0.08)">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:500;color:#fff">רעיונות — תוכן ארוך</div>
+        <div style="width:40px;height:1.5px;background:linear-gradient(90deg,#fff,rgba(255,255,255,0.05));border-radius:2px;margin-top:8px"></div>
+      </div>
+      <div style="padding:14px 16px">
+        <div id="video-ideas-long-list"></div>
+        <div style="display:flex;gap:6px;margin-top:10px">
+          <input type="text" id="new-video-idea-long" placeholder="הוסף..."
+            style="flex:1;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:#fff;border-radius:8px;padding:7px 10px;font-size:13px;font-family:Inter,sans-serif;outline:none"
+            onkeydown="if(event.key==='Enter')addVideoIdeaDirect('long')">
+          <button onclick="addVideoIdeaDirect('long')"
+            style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);color:#fff;border-radius:8px;padding:7px 12px;cursor:pointer;font-size:13px;font-family:Inter,sans-serif">+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- תוכן ארוך לעבוד עליו -->
+    <div style="background:#111;border:1px solid rgba(255,255,255,0.1);border-radius:16px;overflow:hidden;min-width:240px;flex-shrink:0">
+      <div style="background:#000;padding:14px 18px;border-bottom:1px solid rgba(255,255,255,0.08)">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:500;color:#fff">תוכן ארוך לעבוד עליו</div>
+        <div style="width:40px;height:1.5px;background:linear-gradient(90deg,#fff,rgba(255,255,255,0.05));border-radius:2px;margin-top:8px"></div>
+      </div>
+      <div style="padding:14px 16px">
         <div id="content-long-work-list"></div>
-        <div style="display:flex;gap:6px;margin-top:12px">
-          <input type="text" id="new-content-long-work" placeholder="הוסף סרטון לעבוד עליו..."
+        <div style="display:flex;gap:6px;margin-top:10px">
+          <input type="text" id="new-content-long-work" placeholder="הוסף..."
             style="flex:1;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:#fff;border-radius:8px;padding:7px 10px;font-size:13px;font-family:Inter,sans-serif;outline:none"
             onkeydown="if(event.key==='Enter')addSimpleList('content-long-work')">
           <button onclick="addSimpleList('content-long-work')"
@@ -2432,16 +2408,43 @@ if (localStorage.getItem('darkMode') === '1') {
       </div>
     </div>
 
-    <!-- COLUMN 4: ללמוד בתופים -->
-    <div style="background:#111111;border:1px solid rgba(255,255,255,0.1);border-radius:var(--r);overflow:hidden;min-width:260px;flex-shrink:0">
-      <div style="background:#000;padding:14px 20px;border-bottom:1px solid rgba(255,255,255,0.08)">
-        <div style="font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:500;color:#ffffff">ללמוד בתופים</div>
-        <div style="width:52px;height:1.5px;background:linear-gradient(90deg,#fff,rgba(255,255,255,0.05));border-radius:2px;margin-top:8px"></div>
+    <!-- סרטונים לעשות -->
+    <div style="background:#111;border:1px solid rgba(255,255,255,0.1);border-radius:16px;overflow:hidden;min-width:240px;flex-shrink:0">
+      <div style="background:#000;padding:14px 18px;border-bottom:1px solid rgba(255,255,255,0.08)">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:500;color:#fff">סרטונים לעשות</div>
+        <div style="width:40px;height:1.5px;background:linear-gradient(90deg,#fff,rgba(255,255,255,0.05));border-radius:2px;margin-top:8px"></div>
       </div>
-      <div style="padding:14px 18px">
+      <div style="padding:14px 16px">
+        <div id="videos-todo-list"></div>
+        <div style="display:flex;flex-direction:column;gap:6px;margin-top:10px">
+          <input type="text" id="new-video-todo" placeholder="שם הסרטון..."
+            style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:#fff;border-radius:8px;padding:7px 10px;font-size:13px;font-family:Inter,sans-serif;outline:none">
+          <div style="display:flex;gap:6px">
+            <select id="new-video-todo-status"
+              style="flex:1;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:#fff;border-radius:8px;padding:7px 8px;font-size:12px;font-family:Inter,sans-serif">
+              <option value="idea">רעיון</option>
+              <option value="script">תסריט</option>
+              <option value="filming">צילום</option>
+              <option value="edit">עריכה</option>
+              <option value="done">מוכן</option>
+            </select>
+            <button onclick="addVideoTodo()"
+              style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);color:#fff;border-radius:8px;padding:7px 12px;cursor:pointer;font-size:13px;font-family:Inter,sans-serif">+</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ללמוד בתופים -->
+    <div style="background:#111;border:1px solid rgba(255,255,255,0.1);border-radius:16px;overflow:hidden;min-width:240px;flex-shrink:0">
+      <div style="background:#000;padding:14px 18px;border-bottom:1px solid rgba(255,255,255,0.08)">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:500;color:#fff">ללמוד בתופים</div>
+        <div style="width:40px;height:1.5px;background:linear-gradient(90deg,#fff,rgba(255,255,255,0.05));border-radius:2px;margin-top:8px"></div>
+      </div>
+      <div style="padding:14px 16px">
         <div id="drums-learn-list"></div>
-        <div style="display:flex;gap:6px;margin-top:12px">
-          <input type="text" id="new-drums-learn" placeholder="הוסף נושא ללמוד..."
+        <div style="display:flex;gap:6px;margin-top:10px">
+          <input type="text" id="new-drums-learn" placeholder="הוסף..."
             style="flex:1;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:#fff;border-radius:8px;padding:7px 10px;font-size:13px;font-family:Inter,sans-serif;outline:none"
             onkeydown="if(event.key==='Enter')addSimpleList('drums-learn')">
           <button onclick="addSimpleList('drums-learn')"
