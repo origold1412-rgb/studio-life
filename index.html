@@ -1760,7 +1760,7 @@ if (localStorage.getItem('darkMode') === '1') {
  <button class="s-btn" id="pwa-install-btn" onclick="installPWA()"> התקן אפליקציה</button>
  <div class="dark-toggle-wrap">
  
- <div class="dark-toggle" id="dark-toggle" onclick="toggleDark()" title="מצב כהה"></div>
+ <div class="dark-toggle" id="dark-toggle" onclick="toggleDark()" id="dark-toggle-btn" title="מצב כהה"></div>
  </div>
 </div>
 
@@ -3190,7 +3190,7 @@ function saveGcal() {
 }
 
 function loadGapi() {
- if(document.getElementById('gapi-script')) { initGapi(); return; }
+ if(document.getElementById('gapi-script') || {}) { initGapi(); return; }
  const s=document.createElement('script');
  s.id='gapi-script';
  s.src='https://apis.google.com/js/api.js';
@@ -3321,14 +3321,13 @@ function initDarkMode() {
  if (isDark) {
  document.body.classList.add('dark');
  document.documentElement.classList.add('dark');
- const el = document.getElementById('dark-label'); if(el) el.textContent = '';
  }
 }
 
 function toggleDark() {
  const isDark = document.body.classList.toggle('dark');
  localStorage.setItem('darkMode', isDark ? '1' : '0');
- document.getElementById('dark-label').textContent = isDark ? '' : '';
+ const dl2=document.getElementById('dark-label'); if(dl2) dl2.textContent = isDark ? '' : '';
 }
 
 // ======= CONTENT TAB =======
@@ -3356,6 +3355,7 @@ function switchIdeasTab(type) {
   _ideasTab = type;
   const btnShort = document.getElementById('ideas-tab-short');
   const btnLong  = document.getElementById('ideas-tab-long');
+  if (!btnShort || !btnLong) { renderVideoIdeasDirect(type, get('video_ideas_'+type,[])); return; }
   if (btnShort) {
     btnShort.style.background = type==='short' ? 'rgba(255,255,255,0.08)' : 'transparent';
     btnShort.style.color      = type==='short' ? '#ffffff' : 'rgba(255,255,255,0.4)';
@@ -3390,6 +3390,7 @@ function renderVideoIdeas(ideas) {
 
 function addVideoIdea() {
   const inp = document.getElementById('new-video-idea');
+  if (!inp) return;
   const val = inp.value.trim(); if (!val) return;
   const key = 'video_ideas_' + _ideasTab;
   const ideas = get(key, []);
@@ -3462,7 +3463,14 @@ function removeVideoTodo(i) {
 
 // ======= DAILY PRIORITIES =======
 function initPriorities() {
-  renderPriorities(get('my_priorities', []));
+  // Read directly from localStorage for reliability
+  try {
+    const all = JSON.parse(localStorage.getItem('slv3') || '{}');
+    const items = all['my_priorities'] || [];
+    renderPriorities(items);
+  } catch(e) {
+    renderPriorities([]);
+  }
 }
 
 function renderPriorities(items) {
@@ -3499,8 +3507,10 @@ function showPriorityInput() {
   area.style.display = 'flex';
   btn.style.display  = 'none';
   document.getElementById('new-priority').focus();
-  // Re-render with delete buttons visible
-  renderPriorities(get('my_priorities', []));
+  try {
+    const all = JSON.parse(localStorage.getItem('slv3') || '{}');
+    renderPriorities(all['my_priorities'] || []);
+  } catch(e) { renderPriorities([]); }
 }
 
 function hidePriorityInput() {
@@ -4069,6 +4079,11 @@ function removeKanbanItem(ci, ii) {
   cols[ci].items.splice(ii, 1);
   save('kanban_cols', cols);
   renderKanban(cols);
+}
+
+function autoSaveWeeklyQ() {
+  clearTimeout(window._wqTimer);
+  window._wqTimer = setTimeout(saveWeeklyQ, 600);
 }
 
 // ======= BOOT =======
