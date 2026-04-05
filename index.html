@@ -2425,8 +2425,8 @@ if (localStorage.getItem('darkMode') === '1') {
         <div style="display:flex;gap:6px;margin-top:12px">
           <input type="text" id="new-content-long-work" placeholder="הוסף סרטון לעבוד עליו..."
             style="flex:1;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:#fff;border-radius:8px;padding:7px 10px;font-size:13px;font-family:Inter,sans-serif;outline:none"
-            onkeydown="if(event.key==='Enter')addContentItem('long_work','new-content-long-work','content-long-work-list')">
-          <button onclick="addContentItem('long_work','new-content-long-work','content-long-work-list')"
+            onkeydown="if(event.key==='Enter')addSimpleList('content-long-work')">
+          <button onclick="addSimpleList('content-long-work')"
             style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);color:#fff;border-radius:8px;padding:7px 12px;cursor:pointer;font-size:13px;font-family:Inter,sans-serif">+</button>
         </div>
       </div>
@@ -2443,8 +2443,8 @@ if (localStorage.getItem('darkMode') === '1') {
         <div style="display:flex;gap:6px;margin-top:12px">
           <input type="text" id="new-drums-learn" placeholder="הוסף נושא ללמוד..."
             style="flex:1;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:#fff;border-radius:8px;padding:7px 10px;font-size:13px;font-family:Inter,sans-serif;outline:none"
-            onkeydown="if(event.key==='Enter')addContentItem('drums_learn','new-drums-learn','drums-learn-list')">
-          <button onclick="addContentItem('drums_learn','new-drums-learn','drums-learn-list')"
+            onkeydown="if(event.key==='Enter')addSimpleList('drums-learn')">
+          <button onclick="addSimpleList('drums-learn')"
             style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);color:#fff;border-radius:8px;padding:7px 12px;cursor:pointer;font-size:13px;font-family:Inter,sans-serif">+</button>
         </div>
       </div>
@@ -3929,7 +3929,7 @@ function initSimpleList(id) {
 
 function renderSimpleList(id, items) {
   const el = document.getElementById(id + '-list');
-  if (!el) return;
+  if (!el) { console.log('missing element:', id + '-list'); return; }
   if (!items.length) {
     el.innerHTML = '<p style="color:rgba(255,255,255,0.25);font-size:13px;padding:4px 0">ריק</p>';
     return;
