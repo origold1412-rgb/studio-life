@@ -2117,6 +2117,24 @@ if (localStorage.getItem('darkMode') === '1') {
  </div>
 </div>
 
+
+<!-- ========== KANBAN ========== -->
+<div id="tab-kanban" class="tab-panel">
+  <div class="pg-head"><h1>משימות</h1><p>ניהול משימות בסגנון Trello</p></div>
+
+  <div style="display:flex;gap:16px;overflow-x:auto;padding-bottom:16px;align-items:flex-start" id="kanban-board"></div>
+
+  <div style="margin-top:16px">
+    <button onclick="addKanbanColumn()"
+      style="background:rgba(255,255,255,0.06);border:1.5px dashed rgba(255,255,255,0.2);border-radius:12px;padding:10px 20px;color:rgba(255,255,255,0.5);cursor:pointer;font-size:13px;font-family:Inter,sans-serif;transition:all .2s"
+      onmouseover="this.style.borderColor='rgba(255,255,255,0.5)';this.style.color='#fff'"
+      onmouseout="this.style.borderColor='rgba(255,255,255,0.2)';this.style.color='rgba(255,255,255,0.5)'">
+      + הוסף עמודה
+    </button>
+  </div>
+</div>
+
+
 <!-- ========== TASKS ========== -->
 <div id="tab-tasks" class="tab-panel">
  <div class="pg-head"><h1>משימות בתהליך </h1><p>ביטים, שירים, פרויקטים — ממוינים לפי עדיפות</p></div>
@@ -2316,12 +2334,12 @@ if (localStorage.getItem('darkMode') === '1') {
 <div id="tab-content" class="tab-panel">
   <div class="pg-head"><h1>תוכן</h1><p>ניהול רעיונות וסרטונים</p></div>
 
-  <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr;gap:16px">
+  <div style="display:flex;gap:16px;overflow-x:auto;padding-bottom:16px;align-items:flex-start">
 
-    <!-- COLUMN 1a: תוכן קצר -->
-    <div style="background:#111111;border:1px solid rgba(255,255,255,0.1);border-radius:var(--r);overflow:hidden">
+    <!-- COLUMN 1a: רעיונות -->
+    <div style="background:#111111;border:1px solid rgba(255,255,255,0.1);border-radius:var(--r);overflow:hidden;min-width:400px;flex-shrink:0">
       <div style="background:#000;padding:14px 20px;border-bottom:1px solid rgba(255,255,255,0.08)">
-        <div style="font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:500;color:#ffffff">תוכן קצר</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:500;color:#ffffff">רעיונות לסרטונים</div>
         <div style="width:52px;height:1.5px;background:linear-gradient(90deg,#fff,rgba(255,255,255,0.05));border-radius:2px;margin-top:8px"></div>
       </div>
       <div style="padding:14px 16px">
@@ -2355,7 +2373,7 @@ if (localStorage.getItem('darkMode') === '1') {
     </div>
 
     <!-- COLUMN 2: Videos To Do -->
-    <div style="background:#111111;border:1px solid rgba(255,255,255,0.1);border-radius:var(--r);overflow:hidden">
+    <div style="background:#111111;border:1px solid rgba(255,255,255,0.1);border-radius:var(--r);overflow:hidden;min-width:260px;flex-shrink:0">
       <div style="background:#000;padding:14px 20px;border-bottom:1px solid rgba(255,255,255,0.08)">
         <div style="font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:500;color:#ffffff">סרטונים לעשות</div>
       </div>
@@ -2379,7 +2397,7 @@ if (localStorage.getItem('darkMode') === '1') {
         </div>
 
     <!-- COLUMN 5: עובד עליו כרגע -->
-    <div style="background:#111111;border:1px solid rgba(255,255,255,0.1);border-radius:var(--r);overflow:hidden">
+    <div style="background:#111111;border:1px solid rgba(255,255,255,0.1);border-radius:var(--r);overflow:hidden;min-width:260px;flex-shrink:0">
       <div style="background:#000;padding:14px 20px;border-bottom:1px solid rgba(255,255,255,0.08)">
         <div style="font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:500;color:#ffffff">עובד עליו כרגע</div>
         <div style="width:52px;height:1.5px;background:linear-gradient(90deg,#fff,rgba(255,255,255,0.05));border-radius:2px;margin-top:8px"></div>
@@ -2397,7 +2415,7 @@ if (localStorage.getItem('darkMode') === '1') {
     </div>
 
     <!-- COLUMN 3: תוכן ארוך לעבוד עליו -->
-    <div style="background:#111111;border:1px solid rgba(255,255,255,0.1);border-radius:var(--r);overflow:hidden">
+    <div style="background:#111111;border:1px solid rgba(255,255,255,0.1);border-radius:var(--r);overflow:hidden;min-width:260px;flex-shrink:0">
       <div style="background:#000;padding:14px 20px;border-bottom:1px solid rgba(255,255,255,0.08)">
         <div style="font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:500;color:#ffffff">תוכן ארוך לעבוד עליו</div>
         <div style="width:52px;height:1.5px;background:linear-gradient(90deg,#fff,rgba(255,255,255,0.05));border-radius:2px;margin-top:8px"></div>
@@ -2415,7 +2433,7 @@ if (localStorage.getItem('darkMode') === '1') {
     </div>
 
     <!-- COLUMN 4: ללמוד בתופים -->
-    <div style="background:#111111;border:1px solid rgba(255,255,255,0.1);border-radius:var(--r);overflow:hidden">
+    <div style="background:#111111;border:1px solid rgba(255,255,255,0.1);border-radius:var(--r);overflow:hidden;min-width:260px;flex-shrink:0">
       <div style="background:#000;padding:14px 20px;border-bottom:1px solid rgba(255,255,255,0.08)">
         <div style="font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:500;color:#ffffff">ללמוד בתופים</div>
         <div style="width:52px;height:1.5px;background:linear-gradient(90deg,#fff,rgba(255,255,255,0.05));border-radius:2px;margin-top:8px"></div>
@@ -3942,6 +3960,112 @@ function removeSimpleList(id, i) {
   items.splice(i, 1);
   save('list_' + id, items);
   renderSimpleList(id, items);
+}
+
+
+// ======= KANBAN =======
+function initKanban() {
+  const cols = get('kanban_cols', [
+    { name: 'לעשות', items: [] },
+    { name: 'בתהליך', items: [] },
+    { name: 'הושלם', items: [] }
+  ]);
+  renderKanban(cols);
+}
+
+function renderKanban(cols) {
+  const board = document.getElementById('kanban-board');
+  if (!board) return;
+  board.innerHTML = '';
+
+  cols.forEach((col, ci) => {
+    const div = document.createElement('div');
+    div.style.cssText = 'background:#111111;border:1px solid rgba(255,255,255,0.1);border-radius:16px;overflow:hidden;min-width:260px;flex-shrink:0';
+
+    div.innerHTML = `
+      <div style="background:#000;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:space-between">
+        <span contenteditable="true"
+          onblur="updateKanbanColName(${ci}, this.textContent.trim())"
+          onkeydown="if(event.key==='Enter'){event.preventDefault();this.blur()}"
+          style="font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:500;color:#fff;outline:none;cursor:text;flex:1">
+          ${col.name}
+        </span>
+        <button onclick="removeKanbanCol(${ci})"
+          style="background:none;border:none;color:rgba(255,255,255,0.3);cursor:pointer;font-size:14px;padding:0 0 0 8px;opacity:0;transition:opacity .15s"
+          onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0">✕</button>
+      </div>
+      <div style="padding:12px">
+        <div id="kanban-col-${ci}">
+          ${(col.items||[]).map((item,ii) => `
+            <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:10px 12px;margin-bottom:8px;display:flex;align-items:center;gap:8px"
+              onmouseover="this.querySelector('.k-del').style.opacity=1"
+              onmouseout="this.querySelector('.k-del').style.opacity=0">
+              <span contenteditable="true"
+                onblur="updateKanbanItem(${ci},${ii},this.textContent.trim())"
+                onkeydown="if(event.key==='Enter'){event.preventDefault();this.blur()}"
+                style="flex:1;font-size:14px;color:#fff;outline:none;cursor:text;line-height:1.4">${item}</span>
+              <button class="k-del" onclick="removeKanbanItem(${ci},${ii})"
+                style="background:none;border:none;color:rgba(255,255,255,0.3);cursor:pointer;font-size:12px;opacity:0;transition:opacity .15s;padding:0;flex-shrink:0">✕</button>
+            </div>`).join('')}
+        </div>
+        <div style="display:flex;gap:6px;margin-top:8px">
+          <input type="text" id="kanban-inp-${ci}" placeholder="הוסף משימה..."
+            style="flex:1;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:#fff;border-radius:8px;padding:7px 10px;font-size:13px;font-family:Inter,sans-serif;outline:none"
+            onkeydown="if(event.key==='Enter')addKanbanItem(${ci})">
+          <button onclick="addKanbanItem(${ci})"
+            style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);color:#fff;border-radius:8px;padding:7px 12px;cursor:pointer;font-size:13px;font-family:Inter,sans-serif">+</button>
+        </div>
+      </div>
+    `;
+    board.appendChild(div);
+  });
+}
+
+function addKanbanColumn() {
+  const cols = get('kanban_cols', []);
+  cols.push({ name: 'עמודה חדשה', items: [] });
+  save('kanban_cols', cols);
+  renderKanban(cols);
+}
+
+function removeKanbanCol(ci) {
+  const cols = get('kanban_cols', []);
+  cols.splice(ci, 1);
+  save('kanban_cols', cols);
+  renderKanban(cols);
+}
+
+function updateKanbanColName(ci, name) {
+  if (!name) return;
+  const cols = get('kanban_cols', []);
+  if (cols[ci]) cols[ci].name = name;
+  save('kanban_cols', cols);
+}
+
+function addKanbanItem(ci) {
+  const inp = document.getElementById('kanban-inp-' + ci);
+  const val = inp ? inp.value.trim() : '';
+  if (!val) return;
+  const cols = get('kanban_cols', []);
+  if (!cols[ci].items) cols[ci].items = [];
+  cols[ci].items.push(val);
+  save('kanban_cols', cols);
+  inp.value = '';
+  renderKanban(cols);
+}
+
+function updateKanbanItem(ci, ii, val) {
+  if (!val) return;
+  const cols = get('kanban_cols', []);
+  cols[ci].items[ii] = val;
+  save('kanban_cols', cols);
+}
+
+function removeKanbanItem(ci, ii) {
+  const cols = get('kanban_cols', []);
+  cols[ci].items.splice(ii, 1);
+  save('kanban_cols', cols);
+  renderKanban(cols);
 }
 
 // ======= BOOT =======
