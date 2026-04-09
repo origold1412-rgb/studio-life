@@ -1940,42 +1940,23 @@ if (localStorage.getItem('darkMode') === '1') {
 
  </div><!-- close sidebar -->
 
- <!-- THIRD COLUMN: business -->
+ <!-- THIRD COLUMN: מטרות -->
  <div style="position:sticky;top:80px;display:flex;flex-direction:column;gap:16px">
 
-  <!-- מודל עסקי -->
+  <!-- מטרות -->
   <div style="background:#111111;border:1px solid rgba(255,255,255,0.1);border-radius:16px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.3)">
    <div style="background:#000;padding:14px 18px;border-bottom:1px solid rgba(255,255,255,0.08)">
-    <div style="font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:500;color:#ffffff">מודל עסקי</div>
+    <div style="font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:500;color:#ffffff">רעיונות / פרויקטים</div>
     <div style="width:52px;height:1.5px;background:linear-gradient(90deg,#fff,rgba(255,255,255,0.05));border-radius:2px;margin-top:8px"></div>
    </div>
    <div style="padding:14px 18px">
-    <div style="font-size:12px;color:rgba(255,255,255,0.4);margin-bottom:10px">ממה אתה מרוויח כסף היום?</div>
-    <div id="biz-model-list"></div>
+    <div style="font-size:12px;color:rgba(255,255,255,0.4);margin-bottom:10px">רעיונות ופרויקטים שאתה עובד עליהם</div>
+    <div id="daily-goals-list"></div>
     <div style="display:flex;gap:6px;margin-top:10px">
-     <input type="text" id="new-biz-model" placeholder="הוסף מקור הכנסה..."
+     <input type="text" id="new-daily-goal" placeholder="הוסף רעיון / פרויקט..."
       style="flex:1;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:#fff;border-radius:8px;padding:7px 10px;font-size:13px;font-family:Inter,sans-serif;outline:none"
-      onkeydown="if(event.key==='Enter')addBizItem('model')">
-     <button onclick="addBizItem('model')"
-      style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);color:#fff;border-radius:8px;padding:7px 12px;cursor:pointer;font-size:13px;font-family:Inter,sans-serif">+</button>
-    </div>
-   </div>
-  </div>
-
-  <!-- שיווק -->
-  <div style="background:#111111;border:1px solid rgba(255,255,255,0.1);border-radius:16px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.3)">
-   <div style="background:#000;padding:14px 18px;border-bottom:1px solid rgba(255,255,255,0.08)">
-    <div style="font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:500;color:#ffffff">שיווק</div>
-    <div style="width:52px;height:1.5px;background:linear-gradient(90deg,#fff,rgba(255,255,255,0.05));border-radius:2px;margin-top:8px"></div>
-   </div>
-   <div style="padding:14px 18px">
-    <div style="font-size:12px;color:rgba(255,255,255,0.4);margin-bottom:10px">איך אתה אמור לשווק כדי להביא לקוחות?</div>
-    <div id="biz-marketing-list"></div>
-    <div style="display:flex;gap:6px;margin-top:10px">
-     <input type="text" id="new-biz-marketing" placeholder="הוסף ערוץ שיווק..."
-      style="flex:1;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:#fff;border-radius:8px;padding:7px 10px;font-size:13px;font-family:Inter,sans-serif;outline:none"
-      onkeydown="if(event.key==='Enter')addBizItem('marketing')">
-     <button onclick="addBizItem('marketing')"
+      onkeydown="if(event.key==='Enter')addSimpleList('daily-goals')">
+     <button onclick="addSimpleList('daily-goals')"
       style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);color:#fff;border-radius:8px;padding:7px 12px;cursor:pointer;font-size:13px;font-family:Inter,sans-serif">+</button>
     </div>
    </div>
@@ -4313,9 +4294,16 @@ function addBizTabItem(type) {
   const val = inp ? inp.value.trim() : ''; if (!val) return;
   const items = get('biz_' + type, []);
   items.push(val);
-  save('biz_' + type, items);
+  // Force save to all storages
+  const all = JSON.parse(localStorage.getItem('slv3') || '{}');
+  all['biz_' + type] = items;
+  const str = JSON.stringify(all);
+  localStorage.setItem('slv3', str);
+  sessionStorage.setItem('slv3', str);
+  saveToIDB(str);
   if (inp) inp.value = '';
   renderBizTabList(type, items);
+  showToast('נשמר!');
 }
 
 function removeBizTabItem(type, i) {
@@ -4330,7 +4318,6 @@ function bootApp() {
   if (window._booted) return;
   window._booted = true;
   initDarkMode();
-  initBizLists();
   initDaily();
   initPriorities();
   initWeekly();
