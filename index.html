@@ -1685,6 +1685,42 @@ body.dark .goal-item {
   visibility: visible !important;
 }
 
+
+/* Comprehensive dark mode fixes */
+body.dark * {
+  border-color: rgba(255,255,255,0.1) !important;
+}
+body.dark .routine-item,
+body.dark .task-item {
+  background: rgba(255,255,255,0.05) !important;
+}
+body.dark .card,
+body.dark .card-hd {
+  background: #141414 !important;
+  color: #ffffff !important;
+}
+body.dark .card-hd-left,
+body.dark .card-title,
+body.dark .q-label,
+body.dark label,
+body.dark .review-label,
+body.dark h1, body.dark h2, body.dark h3 {
+  color: #ffffff !important;
+}
+body.dark input[type="text"],
+body.dark input[type="number"],
+body.dark input[type="date"],
+body.dark select,
+body.dark textarea {
+  color: #ffffff !important;
+  background: rgba(255,255,255,0.07) !important;
+  border-color: rgba(255,255,255,0.15) !important;
+}
+body.dark input::placeholder,
+body.dark textarea::placeholder {
+  color: rgba(255,255,255,0.3) !important;
+}
+
 @media print {
  body { background: #fff; color: #000; }
  .topbar, .status-bar, .btn-row { display: none !important; }
@@ -2554,27 +2590,32 @@ if (localStorage.getItem('darkMode') === '1') {
 // ======= STORAGE =======
 function save(k, v) {
   try {
-    // Save to localStorage
     const all = JSON.parse(localStorage.getItem('slv3') || '{}');
     all[k] = v;
     const str = JSON.stringify(all);
+    // Save to all 3 storages simultaneously
     localStorage.setItem('slv3', str);
-    // Also save to sessionStorage as backup
-    sessionStorage.setItem('slv3', str);
-    // Also save to IndexedDB
-    saveToIDB(str);
-  } catch(e) {}
+    try { sessionStorage.setItem('slv3', str); } catch(e2) {}
+    try { saveToIDB(str); } catch(e3) {}
+    window._idbCache = str;
+  } catch(e) {
+    // Last resort - try sessionStorage only
+    try {
+      const all2 = JSON.parse(sessionStorage.getItem('slv3') || '{}');
+      all2[k] = v;
+      sessionStorage.setItem('slv3', JSON.stringify(all2));
+    } catch(e2) {}
+  }
 }
 
 function get(k, defaultVal) {
   try {
-    // Try localStorage first
-    let str = localStorage.getItem('slv3');
-    // If empty, try sessionStorage
-    if (!str || str === '{}') str = sessionStorage.getItem('slv3');
-    // If still empty, try IDB cache
-    if (!str || str === '{}') str = window._idbCache || null;
-    const all = JSON.parse(str || '{}');
+    // Try all storages in order
+    let str = localStorage.getItem('slv3') || '';
+    if (!str || str === '{}') str = sessionStorage.getItem('slv3') || '';
+    if (!str || str === '{}') str = window._idbCache || '';
+    if (!str) return defaultVal;
+    const all = JSON.parse(str);
     return all.hasOwnProperty(k) ? all[k] : defaultVal;
   } catch(e) { return defaultVal; }
 }
@@ -3404,6 +3445,8 @@ function initContent() {
   initSimpleList('daily-goals');
   initSimpleList('content-long-work');
   initSimpleList('drums-learn');
+  renderVideoIdeasDirect('short', get('video_ideas_short', []));
+  renderVideoIdeasDirect('long', get('video_ideas_long', []));
   // Migrate old video_ideas to short
   const oldIdeas = get('video_ideas', []);
   if (oldIdeas.length && !get('video_ideas_short', []).length) {
@@ -4266,7 +4309,6 @@ function removeFbGroup(i) {
 
 // ======= BIZ TAB =======
 function initBizTab() {
-  // Migrate from old biz_model / biz_marketing keys
   renderBizTabList('model', get('biz_model', []));
   renderBizTabList('marketing', get('biz_marketing', []));
 }
@@ -4330,6 +4372,9 @@ function bootApp() {
   initContent();
   initContentLists();
   initTraining();
+  initKanban();
+  initFb();
+  initBizTab();
   updateStatusBar();
   if(notionCfg.token){ const el=document.getElementById('notion-token'); if(el) el.value=notionCfg.token; }
   if(gcalCfg.clientId){ 
