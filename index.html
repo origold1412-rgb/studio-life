@@ -1748,6 +1748,8 @@ if (localStorage.getItem('darkMode') === '1') {
  <button class="nav-btn" onclick="goTab('review',this)">◦ סיכום שבועי</button>
  <button class="nav-btn" onclick="goTab('content',this)">◦ תוכן</button>
     <button class="nav-btn" onclick="goTab('training',this)">◦ אימונים</button>
+    <button class="nav-btn" onclick="goTab('biz',this)">◦ עסק</button>
+    <button class="nav-btn" onclick="goTab('fb',this)">◦ פייסבוק</button>
  </nav>
 </div>
 
@@ -2480,6 +2482,87 @@ if (localStorage.getItem('darkMode') === '1') {
   </div>
 </div>
 
+
+<!-- ========== FACEBOOK ========== -->
+<div id="tab-fb" class="tab-panel">
+  <div class="pg-head"><h1>שיווק פייסבוק</h1><p>שליחת מודעות יומית לקבוצות</p></div>
+
+  <!-- Daily status bar -->
+  <div id="fb-daily-status" style="background:#111;border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:16px 20px;margin-bottom:20px;display:flex;align-items:center;gap:12px">
+    <div id="fb-status-icon" style="font-size:24px">📣</div>
+    <div>
+      <div style="font-size:14px;font-weight:600;color:#fff" id="fb-status-text">בדוק אם שלחת היום</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.4)" id="fb-status-sub"></div>
+    </div>
+  </div>
+
+  <!-- Groups list -->
+  <div id="fb-groups-list" style="display:flex;flex-direction:column;gap:12px;margin-bottom:24px"></div>
+
+  <!-- Add group -->
+  <div style="background:#111;border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:16px 20px">
+    <div style="font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:12px;font-weight:600;text-transform:uppercase;letter-spacing:1px">הוסף קבוצה</div>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <input type="text" id="fb-group-name" placeholder="שם הקבוצה..."
+        style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:#fff;border-radius:8px;padding:8px 12px;font-size:14px;font-family:Inter,sans-serif;outline:none">
+      <input type="text" id="fb-group-url" placeholder="קישור לקבוצה (https://facebook.com/groups/...)"
+        style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:#fff;border-radius:8px;padding:8px 12px;font-size:14px;font-family:Inter,sans-serif;outline:none">
+      <button onclick="addFbGroup()"
+        style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);color:#fff;border-radius:8px;padding:9px;cursor:pointer;font-size:14px;font-family:Inter,sans-serif;font-weight:600">
+        + הוסף קבוצה
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ========== BIZ ========== -->
+<div id="tab-biz" class="tab-panel">
+  <div class="pg-head"><h1>עסק</h1><p>מודל עסקי ושיווק</p></div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+
+    <!-- מודל עסקי -->
+    <div style="background:#111111;border:1px solid rgba(255,255,255,0.1);border-radius:16px;overflow:hidden">
+      <div style="background:#000;padding:14px 20px;border-bottom:1px solid rgba(255,255,255,0.08)">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:500;color:#ffffff">מודל עסקי</div>
+        <div style="width:52px;height:1.5px;background:linear-gradient(90deg,#fff,rgba(255,255,255,0.05));border-radius:2px;margin-top:8px"></div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.4);margin-top:8px">ממה אתה מרוויח כסף?</div>
+      </div>
+      <div style="padding:14px 18px">
+        <div id="biz-model-tab-list"></div>
+        <div style="display:flex;gap:6px;margin-top:10px">
+          <input type="text" id="new-biz-model-tab" placeholder="הוסף מקור הכנסה..."
+            style="flex:1;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:#fff;border-radius:8px;padding:7px 10px;font-size:13px;font-family:Inter,sans-serif;outline:none"
+            onkeydown="if(event.key==='Enter')addBizTabItem('model')">
+          <button onclick="addBizTabItem('model')"
+            style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);color:#fff;border-radius:8px;padding:7px 12px;cursor:pointer;font-size:13px;font-family:Inter,sans-serif">+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- שיווק -->
+    <div style="background:#111111;border:1px solid rgba(255,255,255,0.1);border-radius:16px;overflow:hidden">
+      <div style="background:#000;padding:14px 20px;border-bottom:1px solid rgba(255,255,255,0.08)">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:500;color:#ffffff">שיווק</div>
+        <div style="width:52px;height:1.5px;background:linear-gradient(90deg,#fff,rgba(255,255,255,0.05));border-radius:2px;margin-top:8px"></div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.4);margin-top:8px">איך מביאים לקוחות?</div>
+      </div>
+      <div style="padding:14px 18px">
+        <div id="biz-marketing-tab-list"></div>
+        <div style="display:flex;gap:6px;margin-top:10px">
+          <input type="text" id="new-biz-marketing-tab" placeholder="הוסף ערוץ שיווק..."
+            style="flex:1;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:#fff;border-radius:8px;padding:7px 10px;font-size:13px;font-family:Inter,sans-serif;outline:none"
+            onkeydown="if(event.key==='Enter')addBizTabItem('marketing')">
+          <button onclick="addBizTabItem('marketing')"
+            style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);color:#fff;border-radius:8px;padding:7px 12px;cursor:pointer;font-size:13px;font-family:Inter,sans-serif">+</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 </div><!-- /main -->
 
 <div id="toast"></div>
@@ -2541,7 +2624,7 @@ async function saveToIDB(str) {
 async function loadFromIDB() {
   try {
     const db = await openIDB();
-    if (!db) return;
+    if (!db) { bootApp(); return; }
     const req = db.transaction('d','readonly').objectStore('d').get('slv3');
     req.onsuccess = e => {
       if (e.target.result) {
@@ -2552,7 +2635,7 @@ async function loadFromIDB() {
           sessionStorage.setItem('slv3', e.target.result);
         }
       }
-      loadFromIDB();
+      bootApp();
     };
     req.onerror = () => bootApp();
   } catch(e) { bootApp(); }
@@ -3337,6 +3420,7 @@ const VIDEO_STATUS_LABELS = {
 
 function initContent() {
   initSimpleList('working-now');
+  initSimpleList('daily-goals');
   initSimpleList('content-long-work');
   initSimpleList('drums-learn');
   // Migrate old video_ideas to short
@@ -4084,6 +4168,161 @@ function removeKanbanItem(ci, ii) {
 function autoSaveWeeklyQ() {
   clearTimeout(window._wqTimer);
   window._wqTimer = setTimeout(saveWeeklyQ, 600);
+}
+
+
+// ======= FACEBOOK GROUPS =======
+function initFb() {
+  const groups = get('fb_groups', []);
+  renderFbGroups(groups);
+  updateFbStatus(groups);
+}
+
+function renderFbGroups(groups) {
+  const el = document.getElementById('fb-groups-list');
+  if (!el) return;
+
+  if (!groups.length) {
+    el.innerHTML = '<div style="color:rgba(255,255,255,0.3);font-size:14px;text-align:center;padding:20px">אין קבוצות — הוסף למטה</div>';
+    return;
+  }
+
+  const today = new Date().toDateString();
+  el.innerHTML = groups.map((g, i) => {
+    const sent = (get('fb_sent_' + today, []) || []).includes(i);
+    return `
+    <div style="background:#111;border:1px solid ${sent ? 'rgba(100,220,100,0.3)' : 'rgba(255,255,255,0.1)'};border-radius:14px;padding:16px 20px;display:flex;align-items:center;gap:14px;transition:all .2s">
+      <div style="width:40px;height:40px;border-radius:50%;background:${sent ? 'rgba(100,220,100,0.15)' : 'rgba(255,255,255,0.08)'};display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">
+        ${sent ? '✓' : '📢'}
+      </div>
+      <div style="flex:1">
+        <div style="font-size:15px;font-weight:600;color:#fff">${g.name}</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.35);margin-top:2px">${sent ? 'נשלח היום ✓' : 'טרם נשלח היום'}</div>
+      </div>
+      <div style="display:flex;gap:8px">
+        <button onclick="openFbGroup(${i})"
+          style="background:rgba(59,130,246,0.15);border:1px solid rgba(59,130,246,0.3);color:#7bb3ff;border-radius:8px;padding:8px 14px;cursor:pointer;font-size:13px;font-family:Inter,sans-serif;font-weight:600">
+          פתח קבוצה
+        </button>
+        <button onclick="markFbSent(${i})"
+          style="background:${sent ? 'rgba(100,220,100,0.15)' : 'rgba(255,255,255,0.08)'};border:1px solid ${sent ? 'rgba(100,220,100,0.3)' : 'rgba(255,255,255,0.15)'};color:${sent ? '#6ddc6d' : '#fff'};border-radius:8px;padding:8px 14px;cursor:pointer;font-size:13px;font-family:Inter,sans-serif;font-weight:600">
+          ${sent ? 'נשלח ✓' : 'סמן כנשלח'}
+        </button>
+        <button onclick="removeFbGroup(${i})"
+          style="background:none;border:none;color:rgba(255,255,255,0.25);cursor:pointer;font-size:16px;padding:0 4px"
+          onmouseover="this.style.color='rgba(255,100,100,0.7)'" onmouseout="this.style.color='rgba(255,255,255,0.25)'">✕</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function updateFbStatus(groups) {
+  const today = new Date().toDateString();
+  const sent = get('fb_sent_' + today, []) || [];
+  const total = groups.length;
+  const sentCount = sent.length;
+  const icon = document.getElementById('fb-status-icon');
+  const text = document.getElementById('fb-status-text');
+  const sub = document.getElementById('fb-status-sub');
+  if (!text) return;
+
+  if (!total) { text.textContent = 'הוסף קבוצות למטה'; return; }
+  if (sentCount === 0) {
+    if (icon) icon.textContent = '📣';
+    text.textContent = 'טרם שלחת מודעה היום';
+    if (sub) sub.textContent = `0 מתוך ${total} קבוצות`;
+  } else if (sentCount < total) {
+    if (icon) icon.textContent = '⚡';
+    text.textContent = `שלחת ל-${sentCount} קבוצות — עוד ${total - sentCount} נשארו`;
+    if (sub) sub.textContent = `${sentCount} מתוך ${total} קבוצות`;
+  } else {
+    if (icon) icon.textContent = '✅';
+    text.textContent = 'שלחת לכל הקבוצות היום!';
+    if (sub) sub.textContent = `${sentCount} מתוך ${total} קבוצות`;
+  }
+}
+
+function openFbGroup(i) {
+  const groups = get('fb_groups', []);
+  if (groups[i] && groups[i].url) {
+    window.open(groups[i].url, '_blank');
+  }
+}
+
+function markFbSent(i) {
+  const today = new Date().toDateString();
+  const sent = get('fb_sent_' + today, []) || [];
+  if (!sent.includes(i)) sent.push(i);
+  else sent.splice(sent.indexOf(i), 1); // toggle
+  save('fb_sent_' + today, sent);
+  const groups = get('fb_groups', []);
+  renderFbGroups(groups);
+  updateFbStatus(groups);
+}
+
+function addFbGroup() {
+  const name = document.getElementById('fb-group-name').value.trim();
+  const url = document.getElementById('fb-group-url').value.trim();
+  if (!name) { showToast('כתוב שם לקבוצה'); return; }
+  const groups = get('fb_groups', []);
+  groups.push({ name, url: url || '#' });
+  save('fb_groups', groups);
+  document.getElementById('fb-group-name').value = '';
+  document.getElementById('fb-group-url').value = '';
+  renderFbGroups(groups);
+  updateFbStatus(groups);
+  showToast('קבוצה נוספה!');
+}
+
+function removeFbGroup(i) {
+  const groups = get('fb_groups', []);
+  groups.splice(i, 1);
+  save('fb_groups', groups);
+  renderFbGroups(groups);
+  updateFbStatus(groups);
+}
+
+
+// ======= BIZ TAB =======
+function initBizTab() {
+  // Migrate from old biz_model / biz_marketing keys
+  renderBizTabList('model', get('biz_model', []));
+  renderBizTabList('marketing', get('biz_marketing', []));
+}
+
+function renderBizTabList(type, items) {
+  const el = document.getElementById('biz-' + type + '-tab-list');
+  if (!el) return;
+  if (!items.length) {
+    el.innerHTML = '<p style="color:rgba(255,255,255,0.25);font-size:13px;padding:4px 0">ריק</p>';
+    return;
+  }
+  el.innerHTML = items.map((item, i) => `
+    <div style="display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid rgba(255,255,255,0.06)"
+      onmouseover="this.querySelector('button').style.opacity=1"
+      onmouseout="this.querySelector('button').style.opacity=0">
+      <span style="color:rgba(255,255,255,0.3);font-size:10px">•</span>
+      <span style="flex:1;font-size:14px;color:#ffffff">${item}</span>
+      <button onclick="removeBizTabItem('${type}',${i})"
+        style="background:none;border:none;color:rgba(255,255,255,0.3);cursor:pointer;font-size:13px;opacity:0;transition:opacity .15s;padding:0">✕</button>
+    </div>`).join('');
+}
+
+function addBizTabItem(type) {
+  const inp = document.getElementById('new-biz-' + type + '-tab');
+  const val = inp ? inp.value.trim() : ''; if (!val) return;
+  const items = get('biz_' + type, []);
+  items.push(val);
+  save('biz_' + type, items);
+  if (inp) inp.value = '';
+  renderBizTabList(type, items);
+}
+
+function removeBizTabItem(type, i) {
+  const items = get('biz_' + type, []);
+  items.splice(i, 1);
+  save('biz_' + type, items);
+  renderBizTabList(type, items);
 }
 
 // ======= BOOT =======
